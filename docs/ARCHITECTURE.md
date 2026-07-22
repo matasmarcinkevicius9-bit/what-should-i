@@ -33,16 +33,36 @@ Components never call `localStorage` directly — they go through this hook.
 
 ```
 app/
-  layout.tsx          # root layout, fonts, metadata
-  page.tsx            # main page: renders ListManager + Picker
+  layout.tsx          # root layout, fonts, metadata, theme init script + toggle
+  page.tsx            # main page: renders Picker + ListManager
 components/
   ListManager.tsx      # add/edit/delete/mark-done UI, "use client"
   ItemRow.tsx           # single item row inside the list
   Picker.tsx            # the wheel/reveal interaction, "use client"
+  ThemeToggle.tsx        # fixed-corner sun/moon dark-mode toggle, "use client"
 lib/
   types.ts              # Item type
-  useItems.ts            # localStorage-backed hook
+  useItems.ts            # localStorage-backed hook (items)
+  itemsStore.ts           # useSyncExternalStore store backing useItems
+  useTheme.ts             # localStorage-backed hook (theme)
+  themeStore.ts            # useSyncExternalStore store backing useTheme
 ```
+
+## Theme (light/dark)
+
+Tailwind's `dark:` variant is redefined in `globals.css` via
+`@custom-variant dark (&:where(.dark, .dark *));` so it responds to a `.dark`
+class instead of only `prefers-color-scheme`. `themeStore.ts` mirrors
+`itemsStore.ts`'s pattern: it owns the `.dark` class on `<html>` and persists
+the choice to `localStorage`, defaulting to system preference if nothing is
+stored yet.
+
+A small blocking `<script>` in the root layout applies the stored (or
+system-preferred) theme class before React hydrates, to avoid a flash of the
+wrong theme on load. Because that script mutates `<html>` outside of React,
+the `<html>` tag carries `suppressHydrationWarning` — otherwise React flags a
+hydration mismatch on its `className`, even though the mismatch is intentional
+and only ever affects that one attribute.
 
 ## The picker
 

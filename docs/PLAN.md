@@ -24,6 +24,13 @@ This project is being built part by part, each part landing as its own commit.
 - Empty states differentiate "list is empty" vs "nothing in this category" vs
   "everything here is done"
 
+## Part 5 — Dark mode toggle (done)
+- Fixed-corner sun/moon button (`ThemeToggle`) toggles a `.dark` class on `<html>`
+- `dark:` Tailwind variant switched to class-based (`@custom-variant dark`) so the
+  toggle can override system preference
+- Choice persisted to `localStorage`, defaults to system preference; a blocking
+  init script prevents a flash of the wrong theme on load
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
