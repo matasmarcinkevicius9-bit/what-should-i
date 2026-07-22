@@ -118,6 +118,27 @@ This project is being built part by part, each part landing as its own commit.
 - Switching category mid-duel re-snapshots the bracket to the new category's
   pool rather than leaving stale contestants around
 
+## Part 14 — About page (done)
+- Static `/about` page: heading, one-sentence description of the app, and a
+  link back to `/`
+- Fixed top-left "info" button (mirrors the theme toggle's corner-button
+  pattern on the opposite corner) links to it from every page
+
+## Part 15 — Visual polish pass (done)
+- Custom brand favicon (`app/icon.svg`, a small gradient wheel echoing the
+  picker) replacing the default Next.js icon; `app/favicon.ico` removed so
+  there's a single unambiguous icon source
+- Removed the unused default Next.js scaffold assets in `public/`
+  (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`) that
+  shipped from `create-next-app` and were never referenced
+- `viewport.themeColor` (light/dark) so the mobile browser chrome matches
+  the app's background instead of showing the OS default
+- Brand-colored `::selection` (fuchsia) instead of the browser default
+- `app/template.tsx` adds a short fade/slide-in on every route change
+  (Framer Motion), so navigating between `/`, `/items/[id]`, and `/about`
+  feels like a single app instead of a hard page swap — verified it doesn't
+  reintroduce the mobile horizontal-overflow issue from Part 12
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
