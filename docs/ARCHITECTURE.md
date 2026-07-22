@@ -35,9 +35,10 @@ Components never call `localStorage` directly — they go through this hook.
 app/
   layout.tsx          # root layout, fonts, metadata, theme init script + toggle
   page.tsx            # main page: renders Picker + ListManager
+  items/[id]/page.tsx  # item detail page, its own URL — /items/<uuid>
 components/
   ListManager.tsx      # add/edit/delete/mark-done UI, "use client"
-  ItemRow.tsx           # single item row inside the list
+  ItemRow.tsx           # single item row inside the list; title links to /items/[id]
   Picker.tsx            # the wheel/reveal interaction, "use client"
   ThemeToggle.tsx        # fixed-corner sun/moon dark-mode toggle, "use client"
 lib/
@@ -47,6 +48,17 @@ lib/
   useTheme.ts             # localStorage-backed hook (theme)
   themeStore.ts            # useSyncExternalStore store backing useTheme
 ```
+
+## Routing / item detail page
+
+`/items/[id]` is a client component (`useParams()` from `next/navigation`, not the
+server `params` prop — the item data only exists in `localStorage`, so there's
+nothing a server render could fetch). It looks the id up in the same `useItems()`
+store everything else uses, so it's always in sync with the list — no separate
+fetch or cache. If the id isn't found (deleted item, mistyped URL, or a link from
+another browser where that id was never created — this app has no shared backend)
+it shows a small "doesn't exist" message with a link back to `/` instead of
+crashing. Item titles in the list and in the wheel's reveal card link here.
 
 ## Theme (light/dark)
 

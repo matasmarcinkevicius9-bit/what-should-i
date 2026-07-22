@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { Item } from "@/lib/types";
 
 type Props = {
@@ -75,9 +76,14 @@ export function ItemRow({ item, onUpdate, onRemove, onToggleDone, onToggleFavori
       />
 
       <div className="min-w-0 flex-1">
-        <p className={`truncate text-sm font-medium text-zinc-900 dark:text-zinc-50 ${item.done ? "line-through" : ""}`}>
+        <Link
+          href={`/items/${item.id}`}
+          className={`block truncate text-sm font-medium text-zinc-900 hover:underline dark:text-zinc-50 ${
+            item.done ? "line-through" : ""
+          }`}
+        >
           {item.title}
-        </p>
+        </Link>
         {item.category && (
           <span className="text-xs text-zinc-500 dark:text-zinc-400">{item.category}</span>
         )}

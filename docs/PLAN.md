@@ -31,6 +31,13 @@ This project is being built part by part, each part landing as its own commit.
 - Choice persisted to `localStorage`, defaults to system preference; a blocking
   init script prevents a flash of the wrong theme on load
 
+## Part 6 — Item detail page (done)
+- Second page, its own address: `/items/[id]` opens a single item directly
+- Item titles (in the list and in the wheel's reveal card) link there
+- Detail page can edit title/category/notes, toggle favorite/done, delete
+  (redirects back to `/`), and shows a friendly "doesn't exist" state for a
+  bad/stale id instead of crashing
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth

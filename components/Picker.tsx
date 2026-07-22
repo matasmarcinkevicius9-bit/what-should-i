@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Item } from "@/lib/types";
 
@@ -219,7 +220,12 @@ export function Picker({ items, onToggleDone }: Props) {
             className="flex flex-col items-center gap-3 rounded-xl border border-zinc-200 bg-white p-5 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
           >
             <p className="text-xs uppercase tracking-wide text-zinc-500">You should</p>
-            <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">{winner.title}</p>
+            <Link
+              href={`/items/${winner.id}`}
+              className="text-xl font-semibold text-zinc-900 hover:underline dark:text-zinc-50"
+            >
+              {winner.title}
+            </Link>
             {winner.category && (
               <span className="text-xs text-zinc-500 dark:text-zinc-400">{winner.category}</span>
             )}
