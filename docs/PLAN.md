@@ -47,6 +47,13 @@ This project is being built part by part, each part landing as its own commit.
 - `whileHover`/`whileTap` motion on the spin button and category chips; the
   reveal card gets a soft glow tinted with the winning slice's color
 
+## Part 8 — Neon marquee rim (done)
+- Wheel rim switched to a dark gradient casing with a ring of white bulbs
+  (fixed count, independent of item count) evenly spaced around it
+- Each bulb pulses on its own delay offset so the ring reads as a chasing
+  marquee light, sped up while the wheel is spinning
+- Pointer and hub picked up a matching white glow for a cohesive neon look
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth

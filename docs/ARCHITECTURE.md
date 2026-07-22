@@ -96,3 +96,14 @@ boundary math as the color slices, so they never drift out of sync even with
 unequal (weighted) slice sizes. `canvas-confetti` fires once, from `handleSpinEnd`,
 right after the winner is determined — it draws to its own canvas layer and needs
 no React state.
+
+The rim is a separate dark casing wrapped around the wheel (its own box, `WHEEL_SIZE
++ RIM_PADDING * 2` square) so the bulb ring has somewhere to sit that isn't part of
+the rotating wheel itself — the bulbs are fixed to the rim, not spinning with the
+wheel, same as a real marquee. `BULB_COUNT` is a fixed number independent of item
+count, positioned with the same rotate-a-full-size-wrapper spoke technique used for
+slice labels. Each bulb is its own `motion.div` animating opacity in a loop, with a
+`delay` proportional to its index over the total count — that per-bulb phase offset
+is what reads as a chasing light around the ring rather than everything blinking in
+unison. The cycle duration shortens while `spinning` is true, so the chase visibly
+speeds up during a spin.

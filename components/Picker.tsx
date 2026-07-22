@@ -23,6 +23,8 @@ const SLICE_COLORS = [
 ];
 
 const WHEEL_SIZE = 288;
+const RIM_PADDING = 18;
+const BULB_COUNT = 20;
 const MIN_SPINS = 4;
 const MAX_SPINS = 7;
 const FAVORITE_WEIGHT = 3;
@@ -188,58 +190,102 @@ export function Picker({ items, onToggleDone }: Props) {
         </div>
       ) : (
         <>
-          <div className="rounded-full bg-gradient-to-br from-zinc-100 to-zinc-300 p-3 shadow-xl dark:from-zinc-800 dark:to-zinc-950">
-            <div className="relative" style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}>
-              <div
-                className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1"
-                style={{
-                  width: 0,
-                  height: 0,
-                  borderLeft: "10px solid transparent",
-                  borderRight: "10px solid transparent",
-                  borderTop: "16px solid var(--foreground)",
-                  filter: "drop-shadow(0 2px 3px rgba(0,0,0,0.35))",
-                }}
-              />
+          <div
+            className="relative rounded-full bg-gradient-to-br from-zinc-800 via-zinc-900 to-black shadow-2xl"
+            style={{
+              width: WHEEL_SIZE + RIM_PADDING * 2,
+              height: WHEEL_SIZE + RIM_PADDING * 2,
+              boxShadow: "0 0 50px rgba(255,255,255,0.12), 0 20px 40px rgba(0,0,0,0.4)",
+            }}
+          >
+            {Array.from({ length: BULB_COUNT }).map((_, i) => {
+              const bulbAngle = (360 / BULB_COUNT) * i;
+              const cycleDuration = spinning ? 0.7 : 2.2;
+              return (
+                <div
+                  key={i}
+                  className="pointer-events-none absolute inset-0"
+                  style={{ transform: `rotate(${bulbAngle}deg)` }}
+                >
+                  <motion.div
+                    className="absolute left-1/2 -translate-x-1/2 rounded-full bg-white"
+                    style={{
+                      top: 4,
+                      width: 8,
+                      height: 8,
+                      boxShadow: "0 0 6px 2px rgba(255,255,255,0.9), 0 0 16px 6px rgba(255,255,255,0.45)",
+                    }}
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{
+                      duration: cycleDuration,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: (i / BULB_COUNT) * cycleDuration,
+                    }}
+                  />
+                </div>
+              );
+            })}
 
-              <motion.div
-                className="h-full w-full rounded-full shadow-inner"
-                style={{
-                  backgroundImage: `${dividerOverlay}, conic-gradient(${slices
-                    .map(
-                      (s, i) =>
-                        `${SLICE_COLORS[i % SLICE_COLORS.length]} ${s.start.toFixed(2)}deg ${(
-                          s.start + s.size
-                        ).toFixed(2)}deg`
-                    )
-                    .join(", ")})`,
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
-                }}
-                animate={{ rotate: rotation }}
-                transition={{ duration: 4, ease: [0.17, 0.67, 0.16, 0.99] }}
-                onAnimationComplete={handleSpinEnd}
-              >
-                {slices.map((s) => (
-                  <div
-                    key={s.item.id}
-                    className="pointer-events-none absolute inset-0"
-                    style={{ transform: `rotate(${s.mid}deg)` }}
-                  >
+            <div
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}
+            >
+              <div className="relative h-full w-full">
+                <div
+                  className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1"
+                  style={{
+                    width: 0,
+                    height: 0,
+                    borderLeft: "10px solid transparent",
+                    borderRight: "10px solid transparent",
+                    borderTop: "16px solid #f5f5f5",
+                    filter: "drop-shadow(0 0 6px rgba(255,255,255,0.8)) drop-shadow(0 2px 3px rgba(0,0,0,0.5))",
+                  }}
+                />
+
+                <motion.div
+                  className="h-full w-full rounded-full shadow-inner"
+                  style={{
+                    backgroundImage: `${dividerOverlay}, conic-gradient(${slices
+                      .map(
+                        (s, i) =>
+                          `${SLICE_COLORS[i % SLICE_COLORS.length]} ${s.start.toFixed(2)}deg ${(
+                            s.start + s.size
+                          ).toFixed(2)}deg`
+                      )
+                      .join(", ")})`,
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+                  }}
+                  animate={{ rotate: rotation }}
+                  transition={{ duration: 4, ease: [0.17, 0.67, 0.16, 0.99] }}
+                  onAnimationComplete={handleSpinEnd}
+                >
+                  {slices.map((s) => (
                     <div
-                      className="absolute left-1/2 top-3.5 truncate text-center text-xs font-semibold text-white/90"
-                      style={{
-                        width: WHEEL_SIZE / 2 - 40,
-                        transform: `translateX(-50%) ${s.mid > 90 && s.mid < 270 ? "rotate(180deg)" : ""}`,
-                      }}
+                      key={s.item.id}
+                      className="pointer-events-none absolute inset-0"
+                      style={{ transform: `rotate(${s.mid}deg)` }}
                     >
-                      {s.item.favorite ? "★ " : ""}
-                      {s.item.title}
+                      <div
+                        className="absolute left-1/2 top-3.5 truncate text-center text-xs font-semibold text-white/90"
+                        style={{
+                          width: WHEEL_SIZE / 2 - 40,
+                          transform: `translateX(-50%) ${s.mid > 90 && s.mid < 270 ? "rotate(180deg)" : ""}`,
+                        }}
+                      >
+                        {s.item.favorite ? "★ " : ""}
+                        {s.item.title}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </motion.div>
+                  ))}
+                </motion.div>
 
-              <div className="absolute left-1/2 top-1/2 z-10 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white bg-gradient-to-br from-zinc-700 to-zinc-900 shadow-md dark:border-zinc-900 dark:from-zinc-100 dark:to-zinc-300" />
+                <div
+                  className="absolute left-1/2 top-1/2 z-10 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white bg-gradient-to-br from-zinc-700 to-zinc-900 dark:border-zinc-900 dark:from-zinc-100 dark:to-zinc-300"
+                  style={{ boxShadow: "0 0 10px 2px rgba(255,255,255,0.7)" }}
+                />
+              </div>
             </div>
           </div>
 
