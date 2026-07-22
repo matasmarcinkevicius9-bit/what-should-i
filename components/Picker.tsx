@@ -26,7 +26,7 @@ const BULB_COUNT = 20;
 const MIN_SPINS = 4;
 const MAX_SPINS = 7;
 const FAVORITE_WEIGHT = 3;
-const DIVIDER_WIDTH_DEG = 0.6;
+const DIVIDER_WIDTH_DEG = 0.8;
 
 function weightOf(item: Item) {
   return item.favorite ? FAVORITE_WEIGHT : 1;
@@ -54,7 +54,7 @@ function buildDividerOverlay(slices: Slice[]): string {
       const a = s.start - DIVIDER_WIDTH_DEG / 2;
       const b = s.start + DIVIDER_WIDTH_DEG / 2;
       stops.push(`transparent ${cursor.toFixed(2)}deg`, `transparent ${a.toFixed(2)}deg`);
-      stops.push(`rgba(255,255,255,0.85) ${a.toFixed(2)}deg`, `rgba(255,255,255,0.85) ${b.toFixed(2)}deg`);
+      stops.push(`rgba(0,0,0,0.45) ${a.toFixed(2)}deg`, `rgba(0,0,0,0.45) ${b.toFixed(2)}deg`);
       cursor = b;
     }
   }
@@ -267,11 +267,10 @@ export function Picker({ items, onToggleDone }: Props) {
                       style={{ transform: `rotate(${s.mid}deg)` }}
                     >
                       <div
-                        className="absolute left-1/2 top-3.5 truncate text-center text-xs font-bold text-white"
+                        className="absolute left-1/2 top-3 truncate rounded-full bg-black/45 px-2 py-0.5 text-center text-[11px] font-semibold tracking-wide text-white"
                         style={{
-                          width: WHEEL_SIZE / 2 - 40,
+                          width: WHEEL_SIZE / 2 - 46,
                           transform: `translateX(-50%) ${s.mid > 90 && s.mid < 270 ? "rotate(180deg)" : ""}`,
-                          textShadow: "0 0 3px #000, 0 0 6px #000, 0 1px 2px #000",
                         }}
                       >
                         {s.item.favorite ? "★ " : ""}

@@ -71,6 +71,14 @@ This project is being built part by part, each part landing as its own commit.
   hover elevation, and enter/exit motion when items are added or removed
 - Detail page: matching category pill and icon+label action buttons
 
+## Part 11 — Wheel label/divider redesign (done)
+- Slice labels switched from a blurry black text-shadow halo to a clean
+  rounded dark pill/chip behind the text — reads well on every slice color,
+  including the black one
+- Divider lines switched from a bright white glowing line to a subtle dark
+  spoke (`rgba(0,0,0,0.45)`), matching a real prize-wheel's look instead of a
+  shiny highlight
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
