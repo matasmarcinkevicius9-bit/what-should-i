@@ -61,6 +61,16 @@ This project is being built part by part, each part landing as its own commit.
   slice and the brightest neon slices
 - A slight `saturate`/`brightness` filter on the wheel keeps the colors vivid
 
+## Part 10 — Whole-app visual pass (done)
+- New shared `components/icons.tsx` (star, pencil, trash, plus, arrow, check) —
+  replaced plain text buttons ("Edit"/"Delete") and the ★ character everywhere
+- Gradient title, section eyebrow labels ("Pick for me" / "Your list"), and a
+  subtle radial color wash behind both pages, tying the page chrome to the
+  wheel's neon palette
+- List rows: pill-style category badges, custom checkbox with a check icon,
+  hover elevation, and enter/exit motion when items are added or removed
+- Detail page: matching category pill and icon+label action buttons
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
