@@ -88,3 +88,11 @@ starts — the animation dramatizes an already-known result rather than driving 
 randomness itself. The rotation needed to land the winning slice under the fixed-top
 pointer is computed from the slice's midpoint angle, always adding forward rotation
 (never snapping backward) so consecutive spins feel continuous.
+
+Slice dividers are drawn as a second `conic-gradient` layered on top of the color
+gradient (multiple comma-separated `backgroundImage` values), with a thin opaque
+white band at each slice boundary and transparent everywhere else — same
+boundary math as the color slices, so they never drift out of sync even with
+unequal (weighted) slice sizes. `canvas-confetti` fires once, from `handleSpinEnd`,
+right after the winner is determined — it draws to its own canvas layer and needs
+no React state.

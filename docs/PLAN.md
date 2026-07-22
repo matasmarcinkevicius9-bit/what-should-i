@@ -38,6 +38,15 @@ This project is being built part by part, each part landing as its own commit.
   (redirects back to `/`), and shows a friendly "doesn't exist" state for a
   bad/stale id instead of crashing
 
+## Part 7 — Wheel polish + confetti (done)
+- Thin white divider lines between slices (a second conic-gradient layered as an
+  extra background image, positioned at each slice boundary)
+- Decorative rim (gradient ring) around the wheel and a raised gradient hub
+- `canvas-confetti` burst, colored from the wheel's own palette, fires the moment
+  a winner is revealed
+- `whileHover`/`whileTap` motion on the spin button and category chips; the
+  reveal card gets a soft glow tinted with the winning slice's color
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
