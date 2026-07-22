@@ -12,14 +12,12 @@ type Props = {
 };
 
 const SLICE_COLORS = [
-  "#f87171",
-  "#fb923c",
-  "#facc15",
-  "#4ade80",
-  "#2dd4bf",
-  "#60a5fa",
-  "#a78bfa",
-  "#f472b6",
+  "#0a0a0a",
+  "#39ff14",
+  "#ff1744",
+  "#00e5ff",
+  "#faff00",
+  "#ff00e5",
 ];
 
 const WHEEL_SIZE = 288;
@@ -256,6 +254,7 @@ export function Picker({ items, onToggleDone }: Props) {
                       )
                       .join(", ")})`,
                     boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+                    filter: "saturate(1.35) brightness(1.05)",
                   }}
                   animate={{ rotate: rotation }}
                   transition={{ duration: 4, ease: [0.17, 0.67, 0.16, 0.99] }}
@@ -268,10 +267,11 @@ export function Picker({ items, onToggleDone }: Props) {
                       style={{ transform: `rotate(${s.mid}deg)` }}
                     >
                       <div
-                        className="absolute left-1/2 top-3.5 truncate text-center text-xs font-semibold text-white/90"
+                        className="absolute left-1/2 top-3.5 truncate text-center text-xs font-bold text-white"
                         style={{
                           width: WHEEL_SIZE / 2 - 40,
                           transform: `translateX(-50%) ${s.mid > 90 && s.mid < 270 ? "rotate(180deg)" : ""}`,
+                          textShadow: "0 0 3px #000, 0 0 6px #000, 0 1px 2px #000",
                         }}
                       >
                         {s.item.favorite ? "★ " : ""}

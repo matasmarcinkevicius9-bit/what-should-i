@@ -54,6 +54,13 @@ This project is being built part by part, each part landing as its own commit.
   marquee light, sped up while the wheel is spinning
 - Pointer and hub picked up a matching white glow for a cohesive neon look
 
+## Part 9 — Neon slice palette (done)
+- Slice colors switched to a neon palette: black, neon green, neon red, cyan,
+  yellow, magenta (cycled by index like before)
+- Labels got a black text-shadow halo so they stay legible on both the black
+  slice and the brightest neon slices
+- A slight `saturate`/`brightness` filter on the wheel keeps the colors vivid
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
