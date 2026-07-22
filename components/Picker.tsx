@@ -12,7 +12,7 @@ type Props = {
 };
 
 const SLICE_COLORS = [
-  "#0a0a0a",
+  "#ff8800",
   "#39ff14",
   "#ff1744",
   "#00e5ff",
