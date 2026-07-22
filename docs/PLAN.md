@@ -97,6 +97,27 @@ This project is being built part by part, each part landing as its own commit.
 - Re-ran the same audit after the fix: zero horizontal overflow at any
   tested width, full CRUD/persistence/not-found flow verified at 375px
 
+## Part 13 — Duel mode (done)
+- New "🔥 Duel mode" toggle next to the category chips switches the wheel from a
+  single-winner spin into a knockout bracket: each spin *eliminates* whichever
+  item it lands on (instead of crowning it), and the wheel rebuilds from the
+  survivors until one item remains as champion
+- Favorite-weighting is inverted in duel mode — favorited items get smaller
+  slices, so they're less likely to be landed on and more likely to survive to
+  the end, preserving the "favorites have an edge" idea from the normal wheel
+  but expressed as elimination odds instead of win odds
+- Whole wheel re-themes while duel mode is active: flame slice palette, a
+  red/black casing, orange ember bulbs instead of white, a flame-colored
+  pointer and hub, darker dividers, and four pulsing 🔥 emoji around the rim
+- Elimination banner ("🔥 X is knocked out — N left") between rounds; a
+  small ember confetti burst on each elimination and a full flame-colored
+  burst when the champion is crowned
+- Champion gets its own reveal card (dark, flame-bordered, "🏆 Duel champion")
+  with the usual detail-page link + mark-as-done, plus a "New duel" button
+  that re-snapshots the current pool and starts over
+- Switching category mid-duel re-snapshots the bracket to the new category's
+  pool rather than leaving stale contestants around
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
