@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
@@ -20,7 +20,8 @@ const SLICE_COLORS = [
   "#ff00e5",
 ];
 
-const WHEEL_SIZE = 288;
+const MAX_WHEEL_SIZE = 288;
+const MIN_WHEEL_SIZE = 200;
 const RIM_PADDING = 18;
 const BULB_COUNT = 20;
 const MIN_SPINS = 4;
@@ -97,6 +98,19 @@ export function Picker({ items, onToggleDone }: Props) {
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [winner, setWinner] = useState<Item | null>(null);
+  const [wheelSize, setWheelSize] = useState(MAX_WHEEL_SIZE);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      const available = (entries[0]?.contentRect.width ?? MAX_WHEEL_SIZE) - RIM_PADDING * 2 - 4;
+      setWheelSize(Math.max(MIN_WHEEL_SIZE, Math.min(MAX_WHEEL_SIZE, available)));
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const categories = useMemo(
     () => Array.from(new Set(items.map((i) => i.category).filter((c): c is string => !!c))),
@@ -145,7 +159,7 @@ export function Picker({ items, onToggleDone }: Props) {
     : undefined;
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div ref={containerRef} className="flex w-full flex-col items-center gap-6">
       {categories.length > 0 && (
         <div className="flex flex-wrap justify-center gap-2">
           <motion.button
@@ -189,10 +203,10 @@ export function Picker({ items, onToggleDone }: Props) {
       ) : (
         <>
           <div
-            className="relative rounded-full bg-gradient-to-br from-zinc-800 via-zinc-900 to-black shadow-2xl"
+            className="relative overflow-hidden rounded-full bg-gradient-to-br from-zinc-800 via-zinc-900 to-black shadow-2xl"
             style={{
-              width: WHEEL_SIZE + RIM_PADDING * 2,
-              height: WHEEL_SIZE + RIM_PADDING * 2,
+              width: wheelSize + RIM_PADDING * 2,
+              height: wheelSize + RIM_PADDING * 2,
               boxShadow: "0 0 50px rgba(255,255,255,0.12), 0 20px 40px rgba(0,0,0,0.4)",
             }}
           >
@@ -227,7 +241,7 @@ export function Picker({ items, onToggleDone }: Props) {
 
             <div
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-              style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}
+              style={{ width: wheelSize, height: wheelSize }}
             >
               <div className="relative h-full w-full">
                 <div
@@ -243,7 +257,7 @@ export function Picker({ items, onToggleDone }: Props) {
                 />
 
                 <motion.div
-                  className="h-full w-full rounded-full shadow-inner"
+                  className="h-full w-full overflow-hidden rounded-full shadow-inner"
                   style={{
                     backgroundImage: `${dividerOverlay}, conic-gradient(${slices
                       .map(
@@ -269,7 +283,7 @@ export function Picker({ items, onToggleDone }: Props) {
                       <div
                         className="absolute left-1/2 top-3 truncate rounded-full bg-black/45 px-2 py-0.5 text-center text-[11px] font-semibold tracking-wide text-white"
                         style={{
-                          width: WHEEL_SIZE / 2 - 46,
+                          width: wheelSize / 2 - 46,
                           transform: `translateX(-50%) ${s.mid > 90 && s.mid < 270 ? "rotate(180deg)" : ""}`,
                         }}
                       >

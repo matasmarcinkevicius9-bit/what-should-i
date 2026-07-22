@@ -79,6 +79,24 @@ This project is being built part by part, each part landing as its own commit.
   spoke (`rgba(0,0,0,0.45)`), matching a real prize-wheel's look instead of a
   shiny highlight
 
+## Part 12 — Mobile responsive audit + fixes (done)
+- Audited all must-have capabilities (2+ pages/detail URL, CRUD, persistence
+  across reload, empty/not-found states, responsive layout) with a Playwright
+  script across laptop (1280px) and phone (390/360/320px) viewports
+- Found and fixed real horizontal-overflow bugs: the wheel's per-slice label
+  wrappers and the rim's bulb wrappers are full-size boxes rotated in place —
+  once rotated, an unrotated square's diagonal bounding box exceeds the
+  circle they're clipped to visually but were never actually clipped in the
+  DOM, so they silently pushed the page's scrollable width out past the
+  viewport on every screen size (not just narrow ones — same bug, just not
+  visible as a scrollbar until the viewport got tight). Fixed with
+  `overflow-hidden` on both the wheel and the rim.
+- Also added a `ResizeObserver`-driven wheel size (shrinks between 200–288px
+  to fit its container) and made the add-item form stack vertically below
+  the `sm` breakpoint instead of cramming three fields into one row
+- Re-ran the same audit after the fix: zero horizontal overflow at any
+  tested width, full CRUD/persistence/not-found flow verified at 375px
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth

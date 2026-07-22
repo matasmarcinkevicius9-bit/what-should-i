@@ -97,6 +97,21 @@ unequal (weighted) slice sizes. `canvas-confetti` fires once, from `handleSpinEn
 right after the winner is determined — it draws to its own canvas layer and needs
 no React state.
 
+The wheel's size isn't a fixed constant at render time — a `ResizeObserver` on
+the `Picker`'s root div drives a `wheelSize` state between `MIN_WHEEL_SIZE` (200)
+and `MAX_WHEEL_SIZE` (288) so it fits whatever width the page actually gives it,
+which matters on phone-width viewports.
+
+Both the wheel (the colored circle) and the rim (the dark casing holding the
+bulb ring) need `overflow-hidden`. Each slice label and each bulb is positioned
+by rotating a full-size wrapper div (`absolute inset-0`) around its own center —
+once rotated, an unrotated square's corners swing outside the circle it's meant
+to represent, and without clipping that excess silently widens the page's
+scrollable area on every screen size (it's just not visible as a scrollbar
+until the viewport gets narrow enough to notice). `overflow-hidden` clips it to
+the circle without affecting anything actually visible, since every label and
+bulb sits well inside the circle's radius already.
+
 The rim is a separate dark casing wrapped around the wheel (its own box, `WHEEL_SIZE
 + RIM_PADDING * 2` square) so the bulb ring has somewhere to sit that isn't part of
 the rotating wheel itself — the bulbs are fixed to the rim, not spinning with the
