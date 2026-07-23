@@ -7,6 +7,10 @@ and spin the wheel to let the app decide for you.
 - Add, edit, delete, and mark items as done
 - An animated spin/reveal (Framer Motion) picks a random item from your list
 
+## Screenshot
+
+<!-- TODO: add a screenshot, e.g. docs/screenshot.png, then: ![What Should I](docs/screenshot.png) -->
+
 ## Getting started
 
 ```bash
