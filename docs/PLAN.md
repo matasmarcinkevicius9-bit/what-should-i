@@ -139,6 +139,17 @@ This project is being built part by part, each part landing as its own commit.
   feels like a single app instead of a hard page swap — verified it doesn't
   reintroduce the mobile horizontal-overflow issue from Part 12
 
+## Part 16 — Custom 404 + error page (done)
+- `app/not-found.tsx` replaces the default blank Next.js 404 with an
+  on-brand page (gradient "404", themed copy, a link back to `/`) — confirmed
+  it still returns a real HTTP 404 status, not just a 200 with 404-looking
+  content
+- `app/error.tsx` catches unexpected runtime errors with a similar themed
+  page, a "Try again" button, and a link home. Uses Next 16's current
+  `unstable_retry` prop (the old `reset` prop from earlier Next versions),
+  confirmed against the installed `next` package's own docs rather than
+  assumed from memory
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth
