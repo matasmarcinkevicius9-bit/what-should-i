@@ -12,21 +12,21 @@ type Props = {
 };
 
 const SLICE_COLORS = [
-  "#ff8800",
-  "#39ff14",
-  "#ff1744",
-  "#00e5ff",
-  "#faff00",
-  "#ff00e5",
+  "#0a0a0a",
+  "#ff2bd6",
+  "#0ee6ff",
+  "#d4ff1a",
+  "#b23bff",
+  "#ff5f1a",
 ];
 
 const FLAME_SLICE_COLORS = [
-  "#ff4500",
-  "#ff8c00",
-  "#b22222",
+  "#0a0a0a",
+  "#ff5f1a",
   "#ffae00",
+  "#ff2b2b",
   "#8b0000",
-  "#ff6f00",
+  "#ff8c00",
 ];
 
 const MAX_WHEEL_SIZE = 288;
@@ -253,10 +253,10 @@ export function Picker({ items, onToggleDone }: Props) {
             <motion.button
               whileTap={{ scale: 0.94 }}
               onClick={() => selectCategory(null)}
-              className={`rounded-full px-3 py-1 text-xs font-medium ${
+              className={`hard-sm stamp press-sm px-3 py-1 text-xs font-bold ${
                 category === null
-                  ? "bg-zinc-900 text-white dark:bg-zinc-50 dark:text-zinc-900"
-                  : "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                  ? "bg-[var(--ink)] text-[var(--paper)] [--shadow-c:var(--neon-lime)]"
+                  : "bg-[var(--panel)] text-[var(--ink)] [--shadow-c:var(--ink)]"
               }`}
             >
               All
@@ -266,10 +266,10 @@ export function Picker({ items, onToggleDone }: Props) {
                 key={c}
                 whileTap={{ scale: 0.94 }}
                 onClick={() => selectCategory(c)}
-                className={`rounded-full px-3 py-1 text-xs font-medium ${
+                className={`hard-sm stamp press-sm px-3 py-1 text-xs font-bold ${
                   category === c
-                    ? "bg-zinc-900 text-white dark:bg-zinc-50 dark:text-zinc-900"
-                    : "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                    ? "bg-[var(--ink)] text-[var(--paper)] [--shadow-c:var(--neon-lime)]"
+                    : "bg-[var(--panel)] text-[var(--ink)] [--shadow-c:var(--ink)]"
                 }`}
               >
                 {c}
@@ -281,10 +281,10 @@ export function Picker({ items, onToggleDone }: Props) {
           whileTap={{ scale: 0.94 }}
           onClick={toggleDuelMode}
           disabled={spinning}
-          className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold transition-colors disabled:opacity-50 ${
+          className={`hard-sm stamp press-sm flex items-center gap-1 px-3 py-1 text-xs font-bold disabled:opacity-50 ${
             duelMode
-              ? "bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-[0_0_12px_rgba(255,90,0,0.6)]"
-              : "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+              ? "bg-[var(--neon-orange)] text-[var(--ink)] [--shadow-c:var(--ink)]"
+              : "bg-[var(--panel)] text-[var(--ink)] [--shadow-c:var(--ink)]"
           }`}
         >
           🔥 Duel mode
@@ -292,8 +292,8 @@ export function Picker({ items, onToggleDone }: Props) {
       </div>
 
       {pool.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-zinc-300 p-8 text-center dark:border-zinc-700">
-          <p className="text-sm text-zinc-500">
+        <div className="hard flex flex-col items-center gap-2 p-8 text-center [--shadow-c:var(--neon-pink)]">
+          <p className="stamp text-sm text-[var(--ink)]/70">
             {items.length === 0
               ? "Add something to your list, then spin to let it decide."
               : inCategory.length === 0
@@ -304,17 +304,15 @@ export function Picker({ items, onToggleDone }: Props) {
       ) : (
         <>
           <div
-            className={`relative overflow-hidden rounded-full shadow-2xl ${
-              duelMode
-                ? "bg-gradient-to-br from-red-950 via-orange-950 to-black"
-                : "bg-gradient-to-br from-zinc-800 via-zinc-900 to-black"
+            className={`relative overflow-hidden rounded-full border-4 border-[#3a3a3a] ${
+              duelMode ? "bg-[#1a0a05]" : "bg-[#0e0e0e]"
             }`}
             style={{
               width: wheelSize + RIM_PADDING * 2,
               height: wheelSize + RIM_PADDING * 2,
               boxShadow: duelMode
-                ? "0 0 60px rgba(255,80,0,0.35), 0 20px 40px rgba(0,0,0,0.5)"
-                : "0 0 50px rgba(255,255,255,0.12), 0 20px 40px rgba(0,0,0,0.4)",
+                ? "9px 9px 0 0 var(--neon-orange)"
+                : "9px 9px 0 0 var(--neon-cyan)",
             }}
           >
             {Array.from({ length: BULB_COUNT }).map((_, i) => {
@@ -383,12 +381,10 @@ export function Picker({ items, onToggleDone }: Props) {
                   style={{
                     width: 0,
                     height: 0,
-                    borderLeft: "10px solid transparent",
-                    borderRight: "10px solid transparent",
-                    borderTop: duelMode ? "16px solid #ff5500" : "16px solid #f5f5f5",
-                    filter: duelMode
-                      ? "drop-shadow(0 0 8px rgba(255,80,0,0.9)) drop-shadow(0 2px 3px rgba(0,0,0,0.6))"
-                      : "drop-shadow(0 0 6px rgba(255,255,255,0.8)) drop-shadow(0 2px 3px rgba(0,0,0,0.5))",
+                    borderLeft: "11px solid transparent",
+                    borderRight: "11px solid transparent",
+                    borderTop: duelMode ? "18px solid var(--neon-orange)" : "18px solid var(--neon-lime)",
+                    filter: "drop-shadow(2px 2px 0 var(--ink))",
                   }}
                 />
 
@@ -417,8 +413,8 @@ export function Picker({ items, onToggleDone }: Props) {
                       style={{ transform: `rotate(${s.mid}deg)` }}
                     >
                       <div
-                        className={`absolute left-1/2 top-3 truncate rounded-full px-2 py-0.5 text-center text-[11px] font-semibold tracking-wide text-white ${
-                          duelMode ? "bg-black/60 ring-1 ring-orange-500/40" : "bg-black/45"
+                        className={`stamp absolute left-1/2 top-3 truncate border px-2 py-0.5 text-center text-[11px] font-bold tracking-wide text-white ${
+                          duelMode ? "border-orange-400/60 bg-black/70" : "border-white/30 bg-black/55"
                         }`}
                         style={{
                           width: wheelSize / 2 - 46,
@@ -433,15 +429,9 @@ export function Picker({ items, onToggleDone }: Props) {
                 </motion.div>
 
                 <div
-                  className={`absolute left-1/2 top-1/2 z-10 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 ${
-                    duelMode
-                      ? "border-orange-200 bg-gradient-to-br from-red-600 to-orange-700 dark:border-orange-300"
-                      : "border-white bg-gradient-to-br from-zinc-700 to-zinc-900 dark:border-zinc-900 dark:from-zinc-100 dark:to-zinc-300"
-                  }`}
+                  className="absolute left-1/2 top-1/2 z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-[var(--ink)] bg-[var(--panel)]"
                   style={{
-                    boxShadow: duelMode
-                      ? "0 0 14px 3px rgba(255,100,0,0.8)"
-                      : "0 0 10px 2px rgba(255,255,255,0.7)",
+                    boxShadow: `3px 3px 0 0 ${duelMode ? "var(--neon-orange)" : "var(--neon-lime)"}`,
                   }}
                 />
               </div>
@@ -452,22 +442,22 @@ export function Picker({ items, onToggleDone }: Props) {
             <motion.p
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center text-sm text-orange-600 dark:text-orange-400"
+              className="stamp text-center text-xs text-[var(--neon-orange)]"
             >
-              🔥 <strong>{lastEliminated.title}</strong> is knocked out — {pool.length} left
+              🔥 <strong>{lastEliminated.title}</strong> knocked out — {pool.length} left
             </motion.p>
           )}
 
           <motion.button
-            whileHover={spinDisabled ? {} : { scale: 1.05 }}
-            whileTap={spinDisabled ? {} : { scale: 0.95 }}
+            whileHover={spinDisabled ? {} : { scale: 1.03 }}
+            whileTap={spinDisabled ? {} : { scale: 0.96 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             onClick={spin}
             disabled={spinDisabled}
-            className={`rounded-full px-6 py-2 text-sm font-medium shadow-md disabled:opacity-50 ${
+            className={`hard press stamp px-7 py-2.5 text-sm font-bold disabled:opacity-50 ${
               duelMode
-                ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
-                : "bg-zinc-900 text-white dark:bg-zinc-50 dark:text-zinc-900"
+                ? "bg-[var(--neon-orange)] text-[var(--ink)] [--shadow-c:var(--ink)]"
+                : "bg-[var(--neon-lime)] text-[var(--ink)] [--shadow-c:var(--ink)]"
             }`}
           >
             {spinLabel}
@@ -482,22 +472,22 @@ export function Picker({ items, onToggleDone }: Props) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            style={winnerColor ? { boxShadow: `0 0 0 1px ${winnerColor}33, 0 12px 32px -8px ${winnerColor}66` } : undefined}
-            className="flex flex-col items-center gap-3 rounded-xl border border-zinc-200 bg-white p-5 text-center dark:border-zinc-800 dark:bg-zinc-900"
+            style={{ "--shadow-c": winnerColor ?? "var(--neon-pink)" } as React.CSSProperties}
+            className="hard flex flex-col items-center gap-3 p-5 text-center"
           >
-            <p className="text-xs uppercase tracking-wide text-zinc-500">🎉 You should</p>
+            <p className="stamp text-xs text-[var(--ink)]/60">🎉 You should</p>
             <Link
               href={`/items/${winner.id}`}
-              className="text-xl font-semibold text-zinc-900 hover:underline dark:text-zinc-50"
+              className="font-display text-2xl uppercase tracking-wide text-[var(--ink)] hover:underline"
             >
               {winner.title}
             </Link>
             {winner.category && (
-              <span className="text-xs text-zinc-500 dark:text-zinc-400">{winner.category}</span>
+              <span className="stamp text-xs text-[var(--ink)]/60">{winner.category}</span>
             )}
             <button
               onClick={() => onToggleDone(winner.id)}
-              className="mt-1 rounded-md border border-zinc-300 px-3 py-1 text-xs font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              className="hard-sm press-sm stamp mt-1 bg-[var(--panel)] px-3 py-1 text-xs font-bold text-[var(--ink)] [--shadow-c:var(--neon-cyan)]"
             >
               Mark as done
             </button>
@@ -510,29 +500,32 @@ export function Picker({ items, onToggleDone }: Props) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            style={{
-              boxShadow: `0 0 0 1px ${championColor}55, 0 0 40px -4px ${championColor}aa, 0 12px 32px -8px rgba(0,0,0,0.5)`,
-            }}
-            className="flex flex-col items-center gap-3 rounded-xl border border-orange-500/40 bg-gradient-to-b from-zinc-900 to-black p-5 text-center"
+            style={
+              {
+                "--shadow-c": championColor ?? "var(--neon-orange)",
+                borderColor: "var(--neon-orange)",
+              } as React.CSSProperties
+            }
+            className="hard flex flex-col items-center gap-3 bg-[#0e0e0e] p-5 text-center"
           >
-            <p className="text-xs uppercase tracking-wide text-orange-400">🏆 Duel champion</p>
+            <p className="stamp text-xs text-[var(--neon-orange)]">🏆 Duel champion</p>
             <Link
               href={`/items/${champion.id}`}
-              className="text-xl font-semibold text-white hover:underline"
+              className="font-display text-2xl uppercase tracking-wide text-white hover:underline"
             >
               {champion.title}
             </Link>
-            {champion.category && <span className="text-xs text-orange-200/70">{champion.category}</span>}
+            {champion.category && <span className="stamp text-xs text-orange-200/70">{champion.category}</span>}
             <div className="mt-1 flex gap-2">
               <button
                 onClick={() => onToggleDone(champion.id)}
-                className="rounded-md border border-orange-500/40 px-3 py-1 text-xs font-medium text-orange-100 hover:bg-orange-500/10"
+                className="hard-sm press-sm stamp bg-[#0e0e0e] px-3 py-1 text-xs font-bold text-orange-100 [--shadow-c:var(--neon-orange)]"
               >
                 Mark as done
               </button>
               <button
                 onClick={restartDuel}
-                className="rounded-md border border-orange-500/40 px-3 py-1 text-xs font-medium text-orange-100 hover:bg-orange-500/10"
+                className="hard-sm press-sm stamp bg-[#0e0e0e] px-3 py-1 text-xs font-bold text-orange-100 [--shadow-c:var(--neon-orange)]"
               >
                 🔁 New duel
               </button>

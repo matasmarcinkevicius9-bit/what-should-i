@@ -7,7 +7,7 @@ export function StarIcon({ className, filled }: IconProps & { filled?: boolean }
       className={className}
       fill={filled ? "currentColor" : "none"}
       stroke="currentColor"
-      strokeWidth={filled ? 0 : 1.8}
+      strokeWidth={filled ? 0 : 2.4}
       strokeLinejoin="round"
     >
       <path d="M12 3.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7L12 3.5Z" />
@@ -17,7 +17,7 @@ export function StarIcon({ className, filled }: IconProps & { filled?: boolean }
 
 export function PencilIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.8}>
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={2.4}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -29,7 +29,7 @@ export function PencilIcon({ className }: IconProps) {
 
 export function TrashIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.8}>
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={2.4}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -57,7 +57,7 @@ export function ArrowLeftIcon({ className }: IconProps) {
 
 export function InfoIcon({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.8}>
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={2.4}>
       <circle cx="12" cy="12" r="9" />
       <path strokeLinecap="round" d="M12 11v5.5" />
       <circle cx="12" cy="8" r="0.9" fill="currentColor" stroke="none" />

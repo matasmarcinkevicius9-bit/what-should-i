@@ -150,6 +150,40 @@ This project is being built part by part, each part landing as its own commit.
   confirmed against the installed `next` package's own docs rather than
   assumed from memory
 
+## Part 17 — Brutalist × neon visual identity (done)
+- Whole-app style overhaul: zero border-radius, thick black/bone structural
+  borders, and hard *offset* drop shadows (no blur) in place of the previous
+  soft rounded-xl/shadow-sm look — every panel, button, input, and tag now
+  reads as a raw slab with a colored neon shadow instead of a translucent
+  glow
+- New font system replacing Geist: `Anton` for display/UI type, `Space Mono`
+  for stamped uppercase labels/meta, `Archivo` for body copy, and `Monoton`
+  — a font literally modeled on neon tube lettering — reserved for the one
+  signature element, the "What Should I" wordmark
+- Signature element: the home page header is a bolted dark slab with the
+  Monoton wordmark glowing via CSS `text-shadow`, plus a one-shot flicker
+  keyframe on load (skipped under `prefers-reduced-motion`)
+- New CSS custom-property token system in `globals.css` (`--paper`, `--ink`,
+  `--panel`, five named `--neon-*` accents) and two reusable classes,
+  `.hard`/`.hard-sm` (border + offset shadow) and `.press`/`.press-sm`
+  (shadow "presses in" on click), used everywhere instead of duplicating
+  Tailwind shadow/border utility strings per component
+- Wheel recased as bolted arcade-cabinet metal (fixed dark casing regardless
+  of site theme, matching the neon-sign header's logic) with a chunky
+  neon-lime hazard-stripe pointer; slice palette swapped to neon
+  pink/cyan/lime/violet/orange; category chips and reveal cards rebuilt as
+  hard-edged stamped tags/panels instead of pills
+- Caught and fixed a real theme-contrast bug during the pass: the shared
+  `.hard` border color is theme-reactive (`var(--ink)`, black in light mode
+  / bone in dark mode), which is correct for normal panels but goes
+  near-invisible against the header/404/error panels that are intentionally
+  a fixed dark slab in both themes — fixed by pinning those specific borders
+  to an explicit neon color via inline style instead of the token
+- Verified light + dark theme and desktop/mobile widths with a temporary
+  Playwright script (installed, screenshotted, then uninstalled per the
+  project's established pattern — confirmed `git diff package.json` stayed
+  empty)
+
 ## Later / optional (not committed to yet)
 - Share a list via URL (encode list in query param or shareable link)
 - Swap `localStorage` for a real DB + auth

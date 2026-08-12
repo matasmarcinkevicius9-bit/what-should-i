@@ -8,26 +8,33 @@ export default function Home() {
   const itemsState = useItems();
 
   return (
-    <div className="flex flex-1 justify-center bg-zinc-50 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(217,70,239,0.10),rgba(255,255,255,0))] dark:bg-black dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(217,70,239,0.16),rgba(0,0,0,0))]">
+    <div className="flex flex-1 justify-center">
       <main className="flex w-full max-w-2xl flex-col gap-10 px-6 py-16">
-        <header className="flex flex-col gap-1">
-          <h1 className="bg-gradient-to-r from-emerald-400 via-fuchsia-500 to-cyan-400 bg-clip-text text-3xl font-extrabold tracking-tight text-transparent">
-            🎡 What Should I
+        <header
+          className="hard sign-flicker relative overflow-hidden bg-[#0b0b0c] px-6 py-8 text-center [--shadow-c:var(--neon-pink)]"
+          style={{ borderColor: "var(--neon-pink)" }}
+        >
+          <span className="pointer-events-none absolute left-3 top-3 h-2.5 w-2.5 rounded-full bg-[#52525b]" />
+          <span className="pointer-events-none absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-[#52525b]" />
+          <span className="pointer-events-none absolute bottom-3 left-3 h-2.5 w-2.5 rounded-full bg-[#52525b]" />
+          <span className="pointer-events-none absolute bottom-3 right-3 h-2.5 w-2.5 rounded-full bg-[#52525b]" />
+          <h1 className="font-sign neon-text text-3xl leading-relaxed text-[var(--neon-pink)] sm:text-4xl [--glow-c:var(--neon-pink)]">
+            What Should I
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Keep a list, then let the wheel decide.
+          <p className="stamp mt-2 text-xs text-[var(--neon-cyan)] [--glow-c:var(--neon-cyan)]">
+            keep a list. spin the wheel. no take-backs.
           </p>
         </header>
 
         <section className="flex flex-col gap-4">
-          <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+          <span className="hard-sm stamp inline-block w-fit bg-[var(--neon-lime)] px-2.5 py-1 text-xs font-bold text-[var(--ink)] [--shadow-c:var(--ink)]">
             Pick for me
           </span>
           <Picker items={itemsState.items} onToggleDone={itemsState.toggleDone} />
         </section>
 
         <section className="flex flex-col gap-4">
-          <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+          <span className="hard-sm stamp inline-block w-fit bg-[var(--neon-cyan)] px-2.5 py-1 text-xs font-bold text-[var(--ink)] [--shadow-c:var(--ink)]">
             Your list
           </span>
           <ListManager {...itemsState} />

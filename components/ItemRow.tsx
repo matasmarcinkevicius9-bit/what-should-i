@@ -32,30 +32,30 @@ export function ItemRow({ item, onUpdate, onRemove, onToggleDone, onToggleFavori
 
   if (editing) {
     return (
-      <li className="flex flex-wrap items-center gap-2 rounded-xl border border-zinc-200 bg-white p-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+      <li className="hard stamp flex flex-wrap items-center gap-2 bg-[var(--panel)] p-3 [--shadow-c:var(--neon-cyan)]">
         <input
           autoFocus
           value={draftTitle}
           onChange={(e) => setDraftTitle(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && saveEdit()}
-          className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-transparent px-2.5 py-1.5 text-sm outline-none transition focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/20 dark:border-zinc-700"
+          className="hard-sm min-w-0 flex-1 bg-[var(--paper)] px-2.5 py-1.5 text-sm text-[var(--ink)] outline-none [--shadow-c:var(--ink)]"
         />
         <input
           value={draftCategory}
           onChange={(e) => setDraftCategory(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && saveEdit()}
           placeholder="category"
-          className="w-28 rounded-lg border border-zinc-300 bg-transparent px-2.5 py-1.5 text-sm outline-none transition focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/20 dark:border-zinc-700"
+          className="hard-sm w-28 bg-[var(--paper)] px-2.5 py-1.5 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--ink)]/40 [--shadow-c:var(--ink)]"
         />
         <button
           onClick={saveEdit}
-          className="rounded-lg bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white dark:bg-zinc-50 dark:text-zinc-900"
+          className="hard-sm press-sm bg-[var(--neon-lime)] px-3 py-1.5 text-sm font-bold text-[var(--ink)] [--shadow-c:var(--ink)]"
         >
           Save
         </button>
         <button
           onClick={() => setEditing(false)}
-          className="rounded-lg px-3 py-1.5 text-sm text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+          className="stamp px-3 py-1.5 text-sm text-[var(--ink)]/60 hover:text-[var(--ink)]"
         >
           Cancel
         </button>
@@ -70,31 +70,29 @@ export function ItemRow({ item, onUpdate, onRemove, onToggleDone, onToggleFavori
       animate={{ opacity: item.done ? 0.5 : 1, y: 0 }}
       exit={{ opacity: 0, x: -16, transition: { duration: 0.15 } }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
+      className="hard press-sm group flex items-center gap-3 bg-[var(--panel)] p-3 [--shadow-c:var(--ink)]"
     >
       <button
         onClick={() => onToggleDone(item.id)}
         aria-label={item.done ? "Mark as not done" : "Mark as done"}
-        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-          item.done
-            ? "border-emerald-500 bg-emerald-500 text-white"
-            : "border-zinc-300 text-transparent hover:border-zinc-400 dark:border-zinc-600"
+        className={`flex h-6 w-6 shrink-0 items-center justify-center border-[2.5px] border-[var(--ink)] transition-colors ${
+          item.done ? "bg-[var(--neon-lime)] text-[var(--ink)]" : "bg-[var(--panel)] text-transparent"
         }`}
       >
-        <CheckIcon className="h-3 w-3" />
+        <CheckIcon className="h-3.5 w-3.5" />
       </button>
 
       <div className="min-w-0 flex-1">
         <Link
           href={`/items/${item.id}`}
-          className={`block truncate text-sm font-medium text-zinc-900 hover:underline dark:text-zinc-50 ${
-            item.done ? "line-through" : ""
+          className={`block truncate text-sm font-bold text-[var(--ink)] hover:underline ${
+            item.done ? "text-[var(--ink)]/40 line-through" : ""
           }`}
         >
           {item.title}
         </Link>
         {item.category && (
-          <span className="mt-0.5 inline-block rounded-full bg-fuchsia-100 px-2 py-0.5 text-[11px] font-medium text-fuchsia-700 dark:bg-fuchsia-950/60 dark:text-fuchsia-300">
+          <span className="stamp mt-1 inline-block border border-[var(--ink)] bg-[var(--neon-violet)] px-1.5 py-0.5 text-[10px] font-bold text-[var(--ink)]">
             {item.category}
           </span>
         )}
@@ -104,7 +102,7 @@ export function ItemRow({ item, onUpdate, onRemove, onToggleDone, onToggleFavori
         onClick={() => onToggleFavorite(item.id)}
         aria-label={item.favorite ? "Unfavorite" : "Favorite"}
         className={`shrink-0 transition-transform hover:scale-110 ${
-          item.favorite ? "text-amber-400" : "text-zinc-300 hover:text-zinc-400 dark:text-zinc-700"
+          item.favorite ? "text-[var(--neon-orange)]" : "text-[var(--ink)]/25 hover:text-[var(--ink)]/50"
         }`}
       >
         <StarIcon className="h-5 w-5" filled={item.favorite} />
@@ -113,7 +111,7 @@ export function ItemRow({ item, onUpdate, onRemove, onToggleDone, onToggleFavori
       <button
         onClick={() => setEditing(true)}
         aria-label="Edit"
-        className="shrink-0 text-zinc-300 transition-colors hover:text-zinc-700 dark:text-zinc-700 dark:hover:text-zinc-200"
+        className="shrink-0 text-[var(--ink)]/25 transition-colors hover:text-[var(--neon-cyan)]"
       >
         <PencilIcon className="h-4 w-4" />
       </button>
@@ -121,7 +119,7 @@ export function ItemRow({ item, onUpdate, onRemove, onToggleDone, onToggleFavori
       <button
         onClick={() => onRemove(item.id)}
         aria-label="Delete"
-        className="shrink-0 text-zinc-300 transition-colors hover:text-red-500 dark:text-zinc-700"
+        className="shrink-0 text-[var(--ink)]/25 transition-colors hover:text-[var(--neon-pink)]"
       >
         <TrashIcon className="h-4 w-4" />
       </button>

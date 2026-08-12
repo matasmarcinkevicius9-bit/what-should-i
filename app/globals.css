@@ -3,29 +3,131 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #efe9d8;
+  --ink: #0a0a0a;
+  --panel: #fffdf6;
+  --panel-2: #e7e0c9;
+  --neon-pink: #ff2bd6;
+  --neon-cyan: #0ee6ff;
+  --neon-lime: #d4ff1a;
+  --neon-orange: #ff5f1a;
+  --neon-violet: #b23bff;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+.dark {
+  --paper: #09090a;
+  --ink: #f2ede0;
+  --panel: #141414;
+  --panel-2: #1c1c1a;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-space-mono);
+  --font-display: var(--font-anton);
+  --font-sign: var(--font-monoton);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ink) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ink) 6%, transparent) 1px, transparent 1px);
+  background-size: 34px 34px;
+  background-attachment: fixed;
 }
 
 ::selection {
-  background: #d946ef;
-  color: #fff;
+  background: var(--neon-pink);
+  color: #0a0a0a;
+}
+
+*:focus-visible {
+  outline: 3px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+/* ---- brutalist building blocks ---- */
+
+.hard {
+  background: var(--panel);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 0 var(--shadow-c, var(--ink));
+}
+
+.hard-sm {
+  border: 2.5px solid var(--ink);
+  box-shadow: 4px 4px 0 0 var(--shadow-c, var(--ink));
+}
+
+.press {
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+.press:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 0 var(--shadow-c, var(--ink));
+}
+
+.press:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 0 var(--shadow-c, var(--ink));
+}
+
+.press-sm {
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease, color 0.1s ease;
+}
+
+.press-sm:hover {
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 6px 6px 0 0 var(--shadow-c, var(--ink));
+}
+
+.press-sm:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--shadow-c, var(--ink));
+}
+
+.stamp {
+  font-family: var(--font-space-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.neon-text {
+  text-shadow:
+    0 0 4px var(--glow-c, var(--neon-pink)),
+    0 0 14px var(--glow-c, var(--neon-pink)),
+    0 0 34px var(--glow-c, var(--neon-pink));
+}
+
+@keyframes signFlicker {
+  0%, 3%, 6%, 100% { opacity: 1; }
+  4% { opacity: 0.4; }
+  5% { opacity: 0.85; }
+}
+
+.sign-flicker {
+  animation: signFlicker 4.5s ease-in-out 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sign-flicker {
+    animation: none;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

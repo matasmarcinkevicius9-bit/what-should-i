@@ -22,25 +22,25 @@ export function ListManager({ items, addItem, updateItem, removeItem, toggleDone
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <form onSubmit={handleAdd} className="flex flex-col gap-2 sm:flex-row">
+      <form onSubmit={handleAdd} className="flex flex-col gap-3 sm:flex-row">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Add something to the list…"
-          className="min-w-0 flex-1 rounded-xl border border-zinc-300 bg-white px-3.5 py-2.5 text-sm shadow-sm outline-none transition focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/20 dark:border-zinc-700 dark:bg-zinc-900"
+          placeholder="ADD SOMETHING TO THE LIST…"
+          className="hard-sm stamp min-w-0 flex-1 bg-[var(--panel)] px-3.5 py-2.5 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--ink)]/40 [--shadow-c:var(--ink)]"
         />
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <input
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            placeholder="category (optional)"
-            className="w-36 min-w-0 flex-1 rounded-xl border border-zinc-300 bg-white px-3.5 py-2.5 text-sm shadow-sm outline-none transition focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/20 dark:border-zinc-700 dark:bg-zinc-900 sm:flex-none"
+            placeholder="CATEGORY"
+            className="hard-sm stamp w-32 min-w-0 flex-1 bg-[var(--panel)] px-3.5 py-2.5 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--ink)]/40 [--shadow-c:var(--ink)] sm:flex-none"
           />
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.96 }}
             type="submit"
-            className="flex shrink-0 items-center gap-1.5 rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm dark:bg-zinc-50 dark:text-zinc-900"
+            className="hard-sm press-sm stamp flex shrink-0 items-center gap-1.5 bg-[var(--neon-lime)] px-4 py-2.5 text-sm font-bold text-[var(--ink)] [--shadow-c:var(--ink)]"
           >
             <PlusIcon className="h-4 w-4" />
             Add
@@ -49,7 +49,7 @@ export function ListManager({ items, addItem, updateItem, removeItem, toggleDone
       </form>
 
       {items.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-300 p-6 text-center text-sm text-zinc-500 dark:border-zinc-700">
+        <p className="hard stamp p-6 text-center text-sm text-[var(--ink)]/70 [--shadow-c:var(--neon-violet)]">
           Your list is empty. Add a few things above to get started.
         </p>
       ) : (
